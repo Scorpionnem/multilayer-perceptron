@@ -1,7 +1,7 @@
 NAME :=	Train
 
 CXX :=	c++
-CXXFLAGS :=	-g -MP -MMD -Wall -Wextra -Werror # -fsanitize=address -fno-omit-frame-pointer
+CXXFLAGS :=	-g -MP -MMD -Wall -Wextra -Werror -std=c++17# -fsanitize=address -fno-omit-frame-pointer
 LFLAGS :=
 
 ###
@@ -9,6 +9,7 @@ LFLAGS :=
 INCLUDE_DIRS :=	inc/\
 
 SRCS :=	main\
+		CSV
 
 ###
 

@@ -6,7 +6,7 @@
 /*   By: mbatty <mbatty@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 16:16:44 by mbatty            #+#    #+#             */
-/*   Updated: 2026/02/16 19:34:01 by mbatty           ###   ########.fr       */
+/*   Updated: 2026/02/17 18:23:00 by mbatty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <unordered_set>
+
+#include "CSV.hpp"
 
 double	sigmoid(double z)
 {
@@ -28,43 +31,13 @@ class	Perceptron
 	public:
 		Perceptron(const std::string &path)
 		{
-			_read_csv(path);
+			_csv.parse(path, {0, 1});
+			_csv.normalize_data();
+			_csv.print();
 		}
 		~Perceptron() {}
 	private:
-		void	_read_csv(const std::string &path)
-		{
-			std::ifstream	file(path);
-			if (!file.is_open())
-			{
-				std::cerr << "Failed to open " << path << std::endl;
-				return ;
-			}
-
-			std::string	line;
-			while (std::getline(file, line))
-			{
-				for (char &c : line)
-					if (c == ',')
-						c = ' ';
-
-				std::stringstream	ss(line);
-
-				int		id;
-				char	sign;
-
-				ss >> id;
-				ss >> sign;
-				for (uint32_t i = 0; i < 30; i++)
-				{
-					double	v;
-
-					ss >> v;
-					std::cout << v << std::endl;
-				}
-			}
-
-		}
+		CSV	_csv;
 };
 
 int	main(void)
