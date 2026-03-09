@@ -6,7 +6,7 @@
 /*   By: mbatty <mbatty@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:13:14 by mbatty            #+#    #+#             */
-/*   Updated: 2026/02/16 15:40:37 by mbatty           ###   ########.fr       */
+/*   Updated: 2026/03/09 11:17:01 by mbatty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
 
 void	print_help()
 {
-	std::cout << "usage: ./Separate [-h, -i, -t, -c, -p, -s]" << std::endl << std::endl;
-	std::cout << "options:" << std::endl;
-	std::cout << "-h --help\t\tshow help message and exit" << std::endl;
-	std::cout << "-i --input\t\tpath to input file" << std::endl;
-	std::cout << "-t --out_train\t\tpath to train out file" << std::endl;
-	std::cout << "-c --out_check\t\tpath to check out file" << std::endl;
-	std::cout << "-p --probability\tprobability of line going in check out file" << std::endl;
-	std::cout << "-s --seed\t\tseed for random" << std::endl;
+	std::cerr << "\nUsage:\n  ./Separate [-h, -i, -t, -c, -p, -s]" << std::endl << std::endl;
+	std::cerr << "Options:" << std::endl;
+	std::cerr << "  -h --help\t\tshow help message and exit" << std::endl;
+	std::cerr << "  -i --input\t\tpath to input file" << std::endl;
+	std::cerr << "  -t --out_train\tpath to train out file" << std::endl;
+	std::cerr << "  -c --out_check\tpath to check out file" << std::endl;
+	std::cerr << "  -p --probability\tprobability of line going in check out file" << std::endl;
+	std::cerr << "  -s --seed\t\tseed for random\n" << std::endl;
 }
 
 int	main(int ac, char **av)
@@ -47,9 +47,10 @@ int	main(int ac, char **av)
 	opts.setStringOpt("--out_check", "-c", check_output_file);
 	opts.setFloatOpt("--probability", "-p", check_probability);
 	opts.setIntOpt("--seed", "-s", seed);
+	opts.setBoolOpt("--help", "-h", help);
 
 	if (!opts.parse(av) || help)
-		return (print_help(), !help);
+		return (print_help(), 1);
 
 	std::cout << "------Separate------" << '\n';
 	std::cout << "Seed:\t" << seed << "\n\n";
